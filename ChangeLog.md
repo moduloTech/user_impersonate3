@@ -1,5 +1,9 @@
 # Change Log
 
+## Unreleased
+
+- Rename gem to user_impersonate3
+
 ## 0.12.0 - Various fixes
 
 ## 0.11.0 - Minor API addition

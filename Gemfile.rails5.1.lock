@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    user_impersonate2 (0.13.0)
+    user_impersonate3 (0.13.0)
       rails (>= 5.1.0)
 
 GEM
@@ -239,7 +239,7 @@ DEPENDENCIES
   rails (~> 5.1.0)
   rails-controller-testing
   sqlite3
-  user_impersonate2!
+  user_impersonate3!
 
 BUNDLED WITH
    1.16.1

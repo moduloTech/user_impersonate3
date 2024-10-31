@@ -1,18 +1,14 @@
-## `user_impersonate2`
-
-[![Install gem](https://badge.fury.io/rb/user_impersonate2.png)](https://rubygems.org/gems/user_impersonate2)
-[![Build status](https://travis-ci.org/userimpersonate/user_impersonate2.png?branch=master)](https://travis-ci.org/userimpersonate/user_impersonate2?branch=master)
-[![Coverage status](https://coveralls.io/repos/github/userimpersonate/user_impersonate2/badge.svg?branch=master)](https://coveralls.io/github/userimpersonate/user_impersonate2?branch=master)
+## `user_impersonate3`
 
 ## Note
 
-This is a fork of Engine Yard's no-longer-maintained [`user_impersonate`](https://github.com/engineyard/user_impersonate)
-gem and is its official successor. It supports Rails from version 4.0 to Rails 5.1 (tests only exists for 4.0 though) and has
-been tested against Ruby 1.9.3, 2.0.0, 2.1.0, 2.2 and 2.3.1.
+This is a fork of UserImpersonate's no-longer-maintained [`user_impersonate2`](https://github.com/userimpersonate/user_impersonate2)
+gem and is its unofficial successor. It supports Rails upto Rails 7.2 and has
+been tested against Ruby 3.2.3.
 
 ## Overview
 
-`user_impersonate2` allows staff users to impersonate normal users: to see what
+`user_impersonate3` allows staff users to impersonate normal users: to see what
 they see and to only do what they can do.
 
 This concept and code was extracted from [Engine Yard Cloud](http://www.engineyard.com/products/cloud),
@@ -20,7 +16,7 @@ which Engine Yard uses to support customer remotely.
 
 This Rails engine currently supports the following Rails authentication systems:
 
-* [Devise](https://github.com/plataformatec/devise)
+* [Devise](https://github.com/heartcombo/devise)
 
 ## Links
 
@@ -37,10 +33,10 @@ above. By default, this will be red.
 Add the gem to your Rails application's `Gemfile` and run `bundle`:
 
 ```ruby
-gem 'user_impersonate2', :require => 'user_impersonate'
+gem 'user_impersonate3', require: 'user_impersonate'
 ```
 
-Note that `:require => 'user_impersonate'` is required as this gem currently
+Note that `require: 'user_impersonate'` is required as this gem currently
 maintains the same internal directory structure as the original
 [`user_impersonate`](https://github.com/engineyard/user_impersonate) gem. This
 may change in future versions but is retained for compatibility for the time
@@ -59,7 +55,7 @@ This adds the following line to your `config/routes.rb` file:
 mount UserImpersonate::Engine => "/impersonate", as: "impersonate_engine"
 ```
 
-It also generates a default initializer under `config/initializers/user_impersonate2.rb`.
+It also generates a default initializer under `config/initializers/user_impersonate.rb`.
 
 Make sure that your layout files include the standard flashes since these are
 used to communicate information and error messages to the user:
@@ -146,13 +142,13 @@ would be:
         %strong= current_user.accounts.first.id
         )
     .impersonate-buttons.grid_12
-      = form_tag url_for([:ssh_key, :admin, current_user]), :method => "put" do
+      = form_tag url_for([:ssh_key, :admin, current_user]), method: 'put' do
         %span Support SSH Key
-        = select_tag 'public_key', options_for_select(current_staff_user.keys.map {|k| k})
-        %button{:type => "submit"} Install SSH Key
+        = select_tag 'public_key', options_for_select(current_staff_user.keys.map { _1 })
+        %button{type: 'submit'} Install SSH Key
       or
-      = form_tag [:admin, :revert], :method => :delete, :class => 'revert-form' do
-        %button{:type => "submit"} Revert to admin
+      = form_tag [:admin, :revert], method: :delete, class: 'revert-form' do
+        %button{type: 'submit'} Revert to admin
 ```
 
 ### Redirects
@@ -175,7 +171,7 @@ end
 
 ### User model and lookup
 
-By default, `user_impersonate2` assumes the user model is named `User`, that you
+By default, `user_impersonate3` assumes the user model is named `User`, that you
 use `User.find(id)` to find a user given its ID, use `some_user.id` to get the
 related ID value and that your user model has a `staff?` attribute that returns
 `true` if the corresponding user is staff and `false` otherwise.
@@ -194,10 +190,10 @@ module UserImpersonate
 end
 ```
 
-By default, `user_impersonate2` will use the same model for staff/admin users
+By default, `user_impersonate3` will use the same model for staff/admin users
 as that described above for regular users. Some configurations, using
-frameworks such as [Active Admin](http://activeadmin.info/), for example, use a
-different model for staff/admin users. `user_impersonate2`'s default behaviour
+frameworks such as [Active Admin](https://activeadmin.info/), for example, use a
+different model for staff/admin users. `user_impersonate3`'s default behaviour
 can be overridden using the following initializer settings:
 
 ```ruby
@@ -236,6 +232,7 @@ end
 
 ApplicationController.class_eval do
   helper_method :current_user
+
   def current_user
     spree_current_user
   end
@@ -271,7 +268,7 @@ Deface::Override.new(:virtual_path => "spree/layouts/spree_application",
 
 ## Contributing
 
-See [`.travis.yml`](https://github.com/userimpersonate/user_impersonate2/blob/master/.travis.yml)
+See [`.travis.yml`](https://github.com/modulotech/user_impersonate3/blob/master/.travis.yml)
 for details of the commands that are run as part of the Travis-CI build of this
 project. The minimum bar for all push requests is that the Travis-CI build must
 pass. Contributors are also strongly encouraged to add new tests to cover any
@@ -295,7 +292,7 @@ file, run `script/test-all`:
 script/test-all
 ```
 
-This scripts requires that you have rbenv installed along with all required
+This script requires that you have rbenv installed along with all required
 versions of Ruby. Furthermore, you'll need to make sure that each version of
 Ruby installed via rbenv has all the required gems available to it installed
 using the `bundle` command.
@@ -315,5 +312,4 @@ the gem in order to catch any syntax errors.
 
 ## Licence
 
-`user_impersonate2` is released under the MIT licence.
-
+`user_impersonate3` is released under the MIT licence.
